@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
+
+.keyword {
+  color: #4d5bce;
+  font-weight: bold;
+}
+
+.string {
+  color: #e99287;
+}
+
+.comment {
+  color: gray;
+}
+
+.code {
+  font-family: "Fira Code";
+  font-size: 22px;
+}
+
+.variable-name {
+  color: #43d9ad;
+}
