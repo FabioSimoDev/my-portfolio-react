@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 export function NavLinkItem({ label, redirectTo, className, onClick }) {
   const location = useLocation();
   const isActive = location.pathname.includes(redirectTo);
@@ -25,5 +25,5 @@ NavLinkItem.propTypes = {
   label: PropTypes.string,
   redirectTo: PropTypes.string,
   className: PropTypes.string,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };

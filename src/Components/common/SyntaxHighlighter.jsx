@@ -43,7 +43,7 @@ const SyntaxHighlighter = ({ code, className }) => {
       } else if (match[4]) {
         // Stringhe
         elements.push(
-          <span key={lastIndex} className="string">
+          <span key={lastIndex} className="string select-text">
             {matchedText}
           </span>
         );
@@ -81,7 +81,7 @@ const SyntaxHighlighter = ({ code, className }) => {
 
 SyntaxHighlighter.propTypes = {
   code: PropTypes.string,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default SyntaxHighlighter;

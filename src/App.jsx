@@ -5,6 +5,8 @@ import "./SyntaxHighlighter.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import { GameProvider } from "./context/GameContext.jsx";
+import Footer from "./Components/footer/Footer.jsx";
+import { useLocation } from "react-router-dom";
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
             }
           />
         </Routes>
+        <Footer className={`hidden`} />
       </GameProvider>
     </BrowserRouter>
   );

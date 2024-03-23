@@ -1,6 +1,7 @@
 import { NavLinkItem } from "./NavLink";
 import { useGame } from "../../helpers/useGameContext";
 import { useState } from "react";
+import Footer from "../footer/Footer";
 
 export const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -12,9 +13,7 @@ export const Navbar = () => {
 
   return isGameCompleted ? (
     <header
-      className={`absolute animate-slideDown w-full md:bg-[transparent] z-50 justify-between md:justify-start md:items-stretch items-center flex px-4 md:px-0 transition-all duration-200 border-b border-b-[#1E2D3D] text-[#607B96] ${
-        navOpen ? "bg-[#011627]" : null
-      }`}
+      className={`absolute animate-slideDown w-full md:bg-[transparent] z-50 justify-between md:justify-start md:items-stretch items-center flex px-4 md:px-0 transition-all duration-200 border-b border-b-lines-color text-text-secondary bg-primary-bg`}
     >
       <div
         className="p-3 pe-28 flex justify-between items-center shrink-0 truncate"
@@ -40,7 +39,7 @@ export const Navbar = () => {
           </svg>
         </button>
         <ul
-          className={`fixed left-0 w-full z-50 right-0 min-h-screen pt-1 bg-[#011627] md:translate-x-0 md:relative text-white transform transition-all duration-300 md:relative md:flex  md:min-h-0 md:px-0 md:py-0 md:space-y-0 ${
+          className={`fixed left-0 w-full z-50 right-0 min-h-screen pt-1 bg-primary-bg md:translate-x-0 md:relative text-white transform transition-all duration-300 md:relative md:flex  md:min-h-0 md:px-0 md:py-0 md:space-y-0 ${
             navOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -67,6 +66,7 @@ export const Navbar = () => {
             className={"ml-auto"}
             onClick={closeNavbar}
           />
+          <Footer className={"md:hidden bottom-10"} />
         </ul>
       </nav>
     </header>
