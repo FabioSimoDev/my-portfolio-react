@@ -5,6 +5,8 @@ export const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
   const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const userWon = Number(localStorage.getItem("won")) > 0;
+  const skipGame = localStorage.getItem("skipped") === "true";
 
   useEffect(() => {
     // sblocco automatico per utenti da mobile
@@ -12,7 +14,7 @@ export const GameProvider = ({ children }) => {
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent
       );
-    if (isMobile) {
+    if (isMobile || userWon || skipGame) {
       setIsGameCompleted(true);
     }
   }, []);
@@ -25,5 +27,5 @@ export const GameProvider = ({ children }) => {
 };
 
 GameProvider.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.array,
 };

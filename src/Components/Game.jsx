@@ -24,6 +24,11 @@ const Game = () => {
     if (winner && !isGameComplete) setIsGameCompleted(winner === "O");
   }, [winner, isGameComplete, setIsGameCompleted]);
 
+  const skipGame = () => {
+    localStorage.setItem("skipped", true);
+    setIsGameCompleted(true);
+  };
+
   return (
     <div className="w-max flex gap-5 bg-gradient-to-br from-[#175553] via-[#175553] to-[#43D9AD]/10 brightness-110 p-10 border border-[#0C1616] rounded-xl select-none">
       <div className="p-2 flex flex-col gap-10 items-center rounded-lg bg-[#011627]">
@@ -62,7 +67,7 @@ const Game = () => {
           </div>
           <button
             className="p-2 px-4 text-xs border rounded-lg ms-auto hover:bg-white hover:text-black"
-            onClick={() => setIsGameCompleted(true)}
+            onClick={skipGame}
           >
             skip
           </button>
