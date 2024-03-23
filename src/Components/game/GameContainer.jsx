@@ -1,4 +1,4 @@
-import Game from "./../Game";
+import Game from "./Game";
 export function GameContainer() {
   return (
     <div className="lg:relative w-full max-w-xl h-full">

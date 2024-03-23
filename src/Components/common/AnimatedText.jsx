@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useTypingEffect } from "../helpers/useTypingEffect";
+import { useTypingEffect } from "../../helpers/useTypingEffect";
 
 const AnimatedText = ({
   texts,
   isTypeByLetter = false,
   duration = 200,
-  className,
+  className
 }) => {
   const [textIndex, setTextIndex] = useState(0);
   const [fadeText, setFadeText] = useState(true);
@@ -81,7 +81,7 @@ AnimatedText.propTypes = {
   className: PropTypes.string,
   duration: PropTypes.number,
   isTypeByLetter: PropTypes.bool,
-  texts: PropTypes.array,
+  texts: PropTypes.array
 };
 
 export default AnimatedText;

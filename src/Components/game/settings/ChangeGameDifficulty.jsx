@@ -1,14 +1,14 @@
 import { SelectDifficultyLevel } from "./SelectDifficultyLevel";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
-import CustomConfirmDialog from "./Modal/CustomConfirmDialog";
+import CustomConfirmDialog from "../../common/CustomConfirmDialog";
 import { IoIosSettings } from "react-icons/io";
-import SyntaxHighlighter from "./SyntaxHighlighter";
+import SyntaxHighlighter from "../../common/SyntaxHighlighter";
 
 const ChangeGameDifficulty = ({
   className,
   selectedOption,
-  setSelectedOption,
+  setSelectedOption
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const selectRef = useRef();
@@ -57,7 +57,7 @@ const ChangeGameDifficulty = ({
 ChangeGameDifficulty.propTypes = {
   className: PropTypes.string,
   selectedOption: PropTypes.string,
-  setSelectedOption: PropTypes.func,
+  setSelectedOption: PropTypes.func
 };
 
 export default ChangeGameDifficulty;

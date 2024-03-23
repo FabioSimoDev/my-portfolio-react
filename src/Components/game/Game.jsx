@@ -1,8 +1,8 @@
 import { Board } from "./Board";
 import { useEffect, useState } from "react";
-import { useGameLogic } from "../helpers/useGameLogic";
-import ChangeGameDifficulty from "./ChangeGameDifficulty";
-import { useGame } from "../helpers/useGameContext";
+import { useGameLogic } from "../../helpers/useGameLogic";
+import ChangeGameDifficulty from "./settings/ChangeGameDifficulty";
+import { useGame } from "../../helpers/useGameContext";
 
 const Game = () => {
   const [selectedOption, setSelectedOption] = useState(
@@ -16,7 +16,7 @@ const Game = () => {
     play,
     stop,
     isPlaying,
-    winCount,
+    winCount
   } = useGameLogic(selectedOption);
   const { setIsGameCompleted, isGameComplete } = useGame();
 

@@ -1,6 +1,6 @@
-import { Navbar } from "./Components/Navbar";
+import { Navbar } from "./Components/navbar/Navbar";
 import "./App.css";
-import Home from "./Components/Home";
+import Home from "./Components/home/Home";
 import "./SyntaxHighlighter.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./routes/PrivateRoute.jsx";

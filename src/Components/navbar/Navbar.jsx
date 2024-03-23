@@ -1,5 +1,5 @@
 import { NavLinkItem } from "./NavLink";
-import { useGame } from "../helpers/useGameContext";
+import { useGame } from "../../helpers/useGameContext";
 import { useState } from "react";
 
 export const Navbar = () => {

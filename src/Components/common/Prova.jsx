@@ -1,13 +1,12 @@
-import { TypeAnimation } from "react-type-animation";
-import texts from "../Utils/homepageTexts";
-import { useTypewriter } from "../helpers/useTypeWriter";
+import texts from "../../Utils/homepageTexts";
+import { useTypewriter } from "../../helpers/useTypeWriter";
 
 const AnimText = () => {
   const [text, { isType, isDelay, isDelete, isDone }] = useTypewriter({
     words: texts,
     loop: 0,
     delaySpeed: 3000,
-    typeSpeed: 100,
+    typeSpeed: 100
   });
   console.log(text);
 

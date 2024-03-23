@@ -1,6 +1,6 @@
-import { GameContainer } from "./UI/GameContainer";
-import { PersonalPresentation } from "./UI/PersonalPresentation";
-import SyntaxHighlighter from "./SyntaxHighlighter";
+import { GameContainer } from "../game/GameContainer";
+import { PersonalPresentation } from "./PersonalPresentation";
+import SyntaxHighlighter from "../common/SyntaxHighlighter";
 
 const Home = () => {
   return (

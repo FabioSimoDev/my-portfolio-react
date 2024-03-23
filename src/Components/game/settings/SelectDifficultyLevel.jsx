@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 export function SelectDifficultyLevel({
   selectedOption,
   handleChange,
-  selectRef,
+  selectRef
 }) {
   return (
     <div className="relative w-10 aspect-video">
       <select
-        className="absolute w-full h-full opacity-0 cursor-pointer"
+        className="absolute w-full h-full opacity-0 cursor-pointer bg-[#011627]"
         value={selectedOption}
         onChange={handleChange}
         ref={selectRef}
@@ -39,5 +39,5 @@ export function SelectDifficultyLevel({
 SelectDifficultyLevel.propTypes = {
   handleChange: PropTypes.func,
   selectRef: PropTypes.object,
-  selectedOption: PropTypes.string,
+  selectedOption: PropTypes.string
 };

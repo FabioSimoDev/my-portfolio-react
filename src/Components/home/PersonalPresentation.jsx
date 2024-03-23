@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import AnimatedText from "../AnimatedText";
-import AnimText from "../Prova";
+import AnimatedText from "../common/AnimatedText";
+import AnimText from "../common/Prova";
 export function PersonalPresentation({ texts }) {
   return (
     <div>
@@ -16,5 +16,5 @@ export function PersonalPresentation({ texts }) {
 }
 
 PersonalPresentation.propTypes = {
-  texts: PropTypes.array,
+  texts: PropTypes.array
 };
