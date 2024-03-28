@@ -1,10 +1,10 @@
 import texts from "../../Utils/homepageTexts";
 import { useTypewriter } from "../../helpers/useTypeWriter";
 
-const AnimText = () => {
+const AnimText = ({ words = texts, loop = 0 }) => {
   const [text, { isType, isDelay, isDelete, isDone }] = useTypewriter({
-    words: texts,
-    loop: 0,
+    words: words,
+    loop: loop,
     delaySpeed: 3000,
     typeSpeed: 100
   });

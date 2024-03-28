@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { NavLink, useLocation } from "react-router-dom";
 export function NavLinkItem({ label, redirectTo, className, onClick }) {
   const location = useLocation();
-  const isActive = location.pathname.includes(redirectTo);
+  const isActive = redirectTo.includes(location.pathname);
 
   return (
     <div

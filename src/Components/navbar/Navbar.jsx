@@ -1,19 +1,35 @@
 import { NavLinkItem } from "./NavLink";
 import { useGame } from "../../helpers/useGameContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../footer/Footer";
+import useToast from "../../helpers/useToastContext";
+import Alert from "../common/Alert";
+import alertTypes from "../../Utils/alertTypes";
 
 export const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);
   const { isGameCompleted } = useGame();
+  const toast = useToast();
 
   const closeNavbar = () => {
     setNavOpen(false);
   };
 
+  useEffect(() => {
+    if (!isGameCompleted)
+      toast.open(
+        <Alert
+          title="per-iniziare"
+          content="completa il gioco per sbloccare le altre sezioni."
+          type={alertTypes.INFO}
+        />,
+        10000
+      );
+  }, [isGameCompleted]);
+
   return isGameCompleted ? (
     <header
-      className={`absolute animate-slideDown w-full md:bg-[transparent] z-50 justify-between md:justify-start md:items-stretch items-center flex px-4 md:px-0 transition-all duration-200 border-b border-b-lines-color text-text-secondary bg-primary-bg`}
+      className={`absolute animate-slideDown w-full z-50 justify-between md:justify-start md:items-stretch items-center flex px-4 md:px-0 transition-all duration-200 border-b border-b-lines-color text-text-secondary bg-primary-bg`}
     >
       <div
         className="p-3 pe-28 flex justify-between items-center shrink-0 truncate"

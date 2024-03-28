@@ -4,7 +4,7 @@ import { createContext, useState, useEffect } from "react";
 export const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
-  const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const [isGameCompleted, setIsGameCompleted] = useState(true);
   const userWon = Number(localStorage.getItem("won")) > 0;
   const skipGame = localStorage.getItem("skipped") === "true";
 
@@ -16,6 +16,8 @@ export const GameProvider = ({ children }) => {
       );
     if (isMobile || userWon || skipGame) {
       setIsGameCompleted(true);
+    } else {
+      setIsGameCompleted(false);
     }
   }, []);
 
@@ -27,5 +29,5 @@ export const GameProvider = ({ children }) => {
 };
 
 GameProvider.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.array
 };

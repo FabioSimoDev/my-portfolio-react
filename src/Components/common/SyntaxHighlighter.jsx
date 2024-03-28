@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-const SyntaxHighlighter = ({ code, className }) => {
+const SyntaxHighlighter = ({ code, className, countLine = false }) => {
   const highlightCode = (code) => {
     // Regex per trovare keyword, dichiarazioni di variabili, stringhe, commenti e nuove linee (\n)
     const regex =
@@ -47,6 +47,37 @@ const SyntaxHighlighter = ({ code, className }) => {
             {matchedText}
           </span>
         );
+      } else if (matchedText.startsWith("/*")) {
+        // Commenti multi riga
+        const commentContent = matchedText.slice(2, -2); // rimuove l'inizio e la fine di un commento (/* e */)
+        const commentLines = commentContent.split("\n");
+
+        // Aggiunge l'inizio di un commento e va a capo
+        elements.push(
+          <span key={`${lastIndex}-start`} className="comment">
+            {"/*"}
+          </span>
+        );
+        elements.push(<br key={`${lastIndex}-start-br`} />);
+
+        // mostra ciascuna riga del commento
+        commentLines.forEach((line, index) => {
+          elements.push(
+            <span key={`${lastIndex}-${index}`} className="comment">
+              &nbsp;{`* ${line}`}
+            </span>
+          );
+          // va a capo includendo l'ultima riga cosi che ci sia una nuova riga anche per la chiusura del commento (*/)
+          if (index < commentLines.length) {
+            elements.push(<br key={`${lastIndex}-${index}-br`} />);
+          }
+        });
+
+        elements.push(
+          <span key={`${lastIndex}-end`} className="comment">
+            &nbsp;{"*/"}
+          </span>
+        );
       } else if (matchedText === "\n") {
         // Nuova linbea
         elements.push(<br key={lastIndex} />);
@@ -74,14 +105,23 @@ const SyntaxHighlighter = ({ code, className }) => {
 
   return (
     <div className="code">
-      <p className={`m-0 p-0 ${className}`}>{highlightCode(code)}</p>
+      <p
+        className={`m-0 p-0 ${
+          countLine
+            ? "[counter-reset:line] [&>span]:[counter-increment:line] [&>span]:before:content-[counter(line)] [&>span]:before:inline-block md:[&>span]:before:pe-10 [&>span]:before:hidden md:[&>span]:before:w-20 [&>span]:before:text-end [&>span]:w-full [&>span]:inline-block"
+            : null
+        } ${className}`}
+      >
+        {highlightCode(code)}
+      </p>
     </div>
   );
 };
 
 SyntaxHighlighter.propTypes = {
   code: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  countLine: PropTypes.bool
 };
 
 export default SyntaxHighlighter;
