@@ -8,6 +8,7 @@ import { GameProvider } from "./context/GameContext.jsx";
 import Footer from "./Components/footer/Footer.jsx";
 import AboutMe from "./Components/about/AboutMe.jsx";
 import { SelectedFolderProvider } from "./context/SelectedFolderContext.jsx";
+import Project from "./Components/projects/Projects.jsx";
 
 function App() {
   return (
@@ -22,6 +23,16 @@ function App() {
               <PrivateRoute>
                 <SelectedFolderProvider>
                   <AboutMe />
+                </SelectedFolderProvider>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/projects"
+            element={
+              <PrivateRoute>
+                <SelectedFolderProvider>
+                  <Project />
                 </SelectedFolderProvider>
               </PrivateRoute>
             }

@@ -5,7 +5,7 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 
 export default function SideBar({ page }) {
   const navigate = useNavigate();
-  const changepage = (value) => {
+  const changePage = (value) => {
     navigate({ search: createSearchParams({ page: value }).toString() });
   };
 
@@ -17,14 +17,14 @@ export default function SideBar({ page }) {
           page === "professional-info" ? "text-white" : null
         }`}
         role="button"
-        onClick={() => changepage("professional-info")}
+        onClick={() => changePage("professional-info")}
       />
       <div
         className={`hover:text-white transition-colors border-b border-b-2 border-icons-color hover:border-white pb-0.5 ${
           page === "personal-info" ? "text-white border-white" : null
         }`}
         role="button"
-        onClick={() => changepage("personal-info")}
+        onClick={() => changePage("personal-info")}
       >
         <FaCircle size={20} />
       </div>
@@ -34,7 +34,7 @@ export default function SideBar({ page }) {
           page === "hobbies" ? "text-white" : null
         }`}
         role="button"
-        onClick={() => changepage("hobbies")}
+        onClick={() => changePage("hobbies")}
       />
     </div>
   );

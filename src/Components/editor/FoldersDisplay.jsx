@@ -13,7 +13,11 @@ const FoldersDisplay = ({ isMobile, page, location }) => {
     return null;
   }
   return (
-    <aside>
+    <aside
+      className={`${
+        location.pathname !== "/about" && !isMobile ? "h-full" : null
+      }`}
+    >
       {location.pathname === "/about" ? (
         <ComponentToRender page={page} />
       ) : (

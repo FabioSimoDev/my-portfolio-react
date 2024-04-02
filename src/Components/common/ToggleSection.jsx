@@ -8,7 +8,8 @@ const ToggleSection = ({
   className,
   delay = "500",
   open = false,
-  isMobile = false
+  isMobile = false,
+  heightGrow = false
 }) => {
   const [isOpen, setIsOpen] = useState(open);
   const navigate = useNavigate();
@@ -38,13 +39,23 @@ const ToggleSection = ({
       </div>
       <div
         className={`transition-all ease-in-out grid ${
+          heightGrow ? "[height:_calc(100%-90px)]" : null
+        } ${
           isOpen
             ? "[grid-template-rows:1fr] mb-4 pt-2"
             : "[grid-template-rows:0fr]"
         }`}
         style={{ transitionDuration: `${delay}ms` }}
       >
-        <div className="overflow-hidden">{children}</div>
+        <div
+          className={`${
+            heightGrow
+              ? "overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#607B96_transparent]"
+              : "overflow-hidden"
+          }`}
+        >
+          {children}
+        </div>
       </div>
     </>
   );
@@ -56,7 +67,8 @@ ToggleSection.propTypes = {
   delay: PropTypes.number,
   title: PropTypes.string,
   open: PropTypes.bool,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  heightGrow: PropTypes.bool
 };
 
 export default ToggleSection;

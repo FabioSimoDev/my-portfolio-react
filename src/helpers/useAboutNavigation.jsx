@@ -1,12 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
-const usePageNavigation = (page, mobileFallback, desktopFallback) => {
+const usePageNavigation = () => {
   const isMobile = useMediaQuery({ query: `(max-width: 768px)` });
+  const [page, setPage] = useState(null);
+  const [mobileFallback, setMobileFallback] = useState(null);
+  const [desktopFallback, setDesktopFallback] = useState(null);
   const navigate = useNavigate();
 
+  const searchParams = (page, mobileFallback, desktopFallback) => {
+    setPage(page);
+    setDesktopFallback(desktopFallback);
+    setMobileFallback(mobileFallback);
+  };
+
   useEffect(() => {
+    if (!mobileFallback || !desktopFallback) return;
     if (!page && isMobile)
       navigate({
         search: createSearchParams({ page: mobileFallback }).toString()
@@ -15,9 +25,9 @@ const usePageNavigation = (page, mobileFallback, desktopFallback) => {
       navigate({
         search: createSearchParams({ page: desktopFallback }).toString()
       });
-  }, [isMobile, navigate, page]);
+  }, [page, mobileFallback, desktopFallback]);
 
-  return isMobile;
+  return { isMobile, searchParams };
 };
 
 export default usePageNavigation;
