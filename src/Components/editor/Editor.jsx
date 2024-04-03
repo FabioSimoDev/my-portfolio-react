@@ -6,6 +6,7 @@ import SyntaxHighlighter from "../common/SyntaxHighlighter";
 import CertificatePreview from "../common/CertificatePreview";
 import { useLocation } from "react-router-dom";
 import ProjectsDisplay from "./ProjectsDisplay";
+import ContactForm from "../contact/ContactForm";
 
 export default function Editor({ page }) {
   const { selectedFolder } = useSelectedFolder();
@@ -24,7 +25,9 @@ export default function Editor({ page }) {
   return (
     <div
       className={`${
-        location.pathname === "/about" ? "xl:w-[45%]" : null
+        location.pathname === "/about" || location.pathname === "/contact"
+          ? "xl:w-[45%]"
+          : null
       } w-full h-full [height:_calc(100dvh-60px)] border-r border-r-lines-color md:pt-14 pt-2 overflow-y-hidden`}
     >
       <div className="flex flex-col overflow-y-hidden bg-primary-bg h-full">
@@ -43,12 +46,17 @@ export default function Editor({ page }) {
                 "truncate leading-relaxed [font-size:_clamp(11.5px,0.9vw,18px)] px-3"
               }
             />
-          ) : (
+          ) : location.pathname === "/projects" ? (
             <div className="flex md:flex-row md:flex-wrap lg:justify-start justify-center flex-col md:items-stretch items-center gap-8">
               <ProjectsDisplay page={page} />
             </div>
-          )}
-          {selectedFolder?.id === "certificates" ? (
+          ) : location.pathname === "/contact" ? (
+            <div className="flex justify-center items-center md:h-[80%] h-full">
+              <ContactForm />
+            </div>
+          ) : null}
+          {selectedFolder?.id === "certificates" &&
+          location.pathname === "/about" ? (
             <CertificatePreview />
           ) : null}
         </div>

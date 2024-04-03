@@ -9,6 +9,7 @@ import Footer from "./Components/footer/Footer.jsx";
 import AboutMe from "./Components/about/AboutMe.jsx";
 import { SelectedFolderProvider } from "./context/SelectedFolderContext.jsx";
 import Project from "./Components/projects/Projects.jsx";
+import Contact from "./Components/contact/Contact.jsx";
 
 function App() {
   return (
@@ -33,6 +34,16 @@ function App() {
               <PrivateRoute>
                 <SelectedFolderProvider>
                   <Project />
+                </SelectedFolderProvider>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <PrivateRoute>
+                <SelectedFolderProvider>
+                  <Contact />
                 </SelectedFolderProvider>
               </PrivateRoute>
             }

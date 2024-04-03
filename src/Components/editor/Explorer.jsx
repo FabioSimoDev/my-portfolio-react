@@ -15,6 +15,8 @@ export default function Explorer({ page, className }) {
       searchParams(page, "personal-info", "professional-info");
     else if (location.pathname === "/projects")
       searchParams(page, technologiesMap.REACT, technologiesMap.REACT);
+    else if (location.pathname === "/contact")
+      searchParams(page, "contacts", "contacts");
   }, [location]);
 
   console.log("page", page);

@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
+import { Fragment } from "react";
 const SyntaxHighlighter = ({ code, className, countLine = false }) => {
   const highlightCode = (code) => {
     // Regex per trovare keyword, dichiarazioni di variabili, stringhe, commenti e nuove linee (\n)
     const regex =
-      /(\b(const|let|var)\b\s+(\w+))|(['"])(?:(?!\4)[^\\]|\\.)*\4|\/\*[\s\S]*?\*\/|\/\/.*|\n/g;
+      /(\b(const|let|var)\b\s+(\w+))|(['"])(?:(?!\4)[^\\]|\\.)*\4|:\s*(['"])(?:(?!\5)[^\\]|\\.)*\5|\/\*[\s\S]*?\*\/|\/\/.*|\n|\b(\w+)\b(?=:)/g;
     let match;
 
     // Array che contiene elementi JSX e stringhe.
@@ -23,29 +24,49 @@ const SyntaxHighlighter = ({ code, className, countLine = false }) => {
       // Il match
       const matchedText = match[0];
 
+      if (!matchedText.startsWith("/*") && !elements.length && countLine) {
+        elements.push(<span key={`${performance.now()}-start-line`}></span>);
+      }
+
       // Determina quale gruppo abbiamo matchato
       if (match[1]) {
         // keyword con dicharazione di una variabile
         // Aggiungiamo la keyword
         elements.push(
-          <span key={lastIndex} className="keyword">
+          <code
+            key={`${lastIndex}-${performance.now()}-keyword`}
+            className="keyword"
+          >
             {match[2]}
-          </span>
+          </code>
         );
         // Aggiungiamo uno spazio
         elements.push(" ");
         // Aggiungiamo il nome della variabile
         elements.push(
-          <span key={lastIndex + match[2].length + 1} className="variable-name">
+          <code
+            key={`${lastIndex}-${match.index}-${match[3]}-variableName`}
+            className="variable-name"
+          >
             {match[3]}
-          </span>
+          </code>
         );
-      } else if (match[4]) {
-        // Stringhe
+      } else if (match[4] || match[6]) {
+        // logica per le stringhe e object-key
         elements.push(
-          <span key={lastIndex} className="string select-text">
+          <code
+            key={`${lastIndex}-${performance.now()}-string-key`}
+            className={match[6] ? "object-key" : "string select-text"}
+          >
             {matchedText}
-          </span>
+          </code>
+        );
+      } else if (match[0].startsWith(":")) {
+        // logica per object-value
+        elements.push(
+          <code key={`${lastIndex}-${performance.now()}-object-value`}>
+            :<code className="object-value">{matchedText.substring(1)}</code>
+          </code>
         );
       } else if (matchedText.startsWith("/*")) {
         // Commenti multi riga
@@ -54,37 +75,60 @@ const SyntaxHighlighter = ({ code, className, countLine = false }) => {
 
         // Aggiunge l'inizio di un commento e va a capo
         elements.push(
-          <span key={`${lastIndex}-start`} className="comment">
+          <span
+            key={`${lastIndex}-${performance.now()}-start`}
+            className="comment"
+          >
             {"/*"}
           </span>
         );
-        elements.push(<br key={`${lastIndex}-start-br`} />);
+        elements.push(
+          <br key={`${lastIndex}-${performance.now()}-start-br`} />
+        );
 
         // mostra ciascuna riga del commento
         commentLines.forEach((line, index) => {
           elements.push(
-            <span key={`${lastIndex}-${index}`} className="comment">
+            <span
+              key={`${lastIndex}-${index}-${line
+                .trim()
+                .substring(0, 10)}-comment`}
+              className="comment"
+            >
               &nbsp;{`* ${line}`}
             </span>
           );
           // va a capo includendo l'ultima riga cosi che ci sia una nuova riga anche per la chiusura del commento (*/)
           if (index < commentLines.length) {
-            elements.push(<br key={`${lastIndex}-${index}-br`} />);
+            elements.push(
+              <br key={`${lastIndex}-${index}-${performance.now()}-br`} />
+            );
           }
         });
 
         elements.push(
-          <span key={`${lastIndex}-end`} className="comment">
+          <span
+            key={`${lastIndex}-${performance.now()}-end`}
+            className="comment"
+          >
             &nbsp;{"*/"}
           </span>
         );
       } else if (matchedText === "\n") {
         // Nuova linbea
-        elements.push(<br key={lastIndex} />);
+        elements.push(
+          <Fragment key={`${lastIndex}-${performance.now()}-new-line`}>
+            <br />
+            <span />
+          </Fragment>
+        );
       } else {
         // Commenti o qualunque altra cosa non catturata
         elements.push(
-          <span key={lastIndex} className="comment">
+          <span
+            key={`${lastIndex}-${performance.now()}-other`}
+            className="comment"
+          >
             {matchedText}
           </span>
         );
@@ -108,7 +152,7 @@ const SyntaxHighlighter = ({ code, className, countLine = false }) => {
       <p
         className={`m-0 p-0 ${
           countLine
-            ? "[counter-reset:line] [&>span]:[counter-increment:line] [&>span]:before:content-[counter(line)] [&>span]:before:inline-block md:[&>span]:before:pe-10 [&>span]:before:hidden md:[&>span]:before:w-20 [&>span]:before:text-end [&>span]:w-full [&>span]:inline-block"
+            ? "[counter-reset:line] [&>span]:[counter-increment:line] [&>span]:before:content-[counter(line)] [&>span]:before:inline-block md:[&>span]:before:pe-10 [&>span]:before:hidden [&>span]:before:md:inline-block md:[&>span]:before:w-16 [&>span]:before:text-end [&>span]:w-full"
             : null
         } ${className}`}
       >

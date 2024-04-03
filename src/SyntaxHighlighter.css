@@ -21,3 +21,11 @@
 .variable-name {
   color: #43d9ad;
 }
+
+.object-key {
+  color: #5565e8;
+}
+
+.object-value {
+  color: #fea55f;
+}
