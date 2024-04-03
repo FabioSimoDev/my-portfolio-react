@@ -2,7 +2,7 @@ import { Navbar } from "./Components/navbar/Navbar";
 import "./App.css";
 import Home from "./Components/home/Home";
 import "./SyntaxHighlighter.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import { GameProvider } from "./context/GameContext.jsx";
 import Footer from "./Components/footer/Footer.jsx";
@@ -48,6 +48,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<Navigate replace to="/home" />} />
         </Routes>
         <Footer className={`hidden`} />
       </GameProvider>
