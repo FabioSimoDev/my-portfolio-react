@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import debounce from "../Utils/debounceFunc";
 
 export const useGameLogic = (difficulty) => {
   const emptyBoard = Array(9).fill(null);
@@ -12,8 +13,24 @@ export const useGameLogic = (difficulty) => {
   const randomProbability = {
     easy: 0.5,
     medium: 0.25,
-    hard: 0.1,
+    hard: 0.1
   };
+  const debouncedAiMove = useCallback(
+    debounce((newBoard) => {
+      if (currentPlayer === "O") {
+        const bestMove = findBestMove(newBoard);
+        if (bestMove !== -1) {
+          newBoard[bestMove] = "X"; // AI places its move
+          setBoard(newBoard);
+          checkWinner(newBoard);
+          setCurrentPlayer("O"); // Switch back to human player
+        }
+      }
+      setIsThinking(false);
+    }, 1000),
+    []
+  );
+  const [isThinking, setIsThinking] = useState(false);
 
   const play = () => {
     setIsPlaying(true);
@@ -32,7 +49,7 @@ export const useGameLogic = (difficulty) => {
       [1, 4, 7],
       [2, 5, 8],
       [0, 4, 8],
-      [2, 4, 6],
+      [2, 4, 6]
     ];
 
     for (let i = 0; i < lines.length; i++) {
@@ -107,32 +124,28 @@ export const useGameLogic = (difficulty) => {
         localStorage.setItem("won", winCount + 1);
         setWinCount(winCount + 1);
       }
-      return;
+      return true;
     }
     if (!board.includes(null)) {
       setWinner("T");
     }
+    return false;
   };
 
   const handleClick = (index) => {
     if (board[index] || winner) return;
+    if (isThinking) return;
 
     const newBoard = [...board];
     newBoard[index] = currentPlayer;
     setBoard(newBoard);
-    checkWinner(newBoard);
+    const isGameFinished = checkWinner(newBoard);
     setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
 
     // AI makes a move right after the player
-    if (currentPlayer === "O") {
-      const bestMove = findBestMove(newBoard);
-      if (bestMove !== -1) {
-        newBoard[bestMove] = "X"; // AI places its move
-        setBoard(newBoard);
-        checkWinner(newBoard);
-        setCurrentPlayer("O"); // Switch back to human player
-      }
-    }
+    if (isGameFinished) return;
+    setIsThinking(true);
+    debouncedAiMove(newBoard);
   };
 
   const restartGame = () => {
@@ -149,6 +162,7 @@ export const useGameLogic = (difficulty) => {
     isPlaying,
     play,
     stop,
-    winCount,
+    isThinking,
+    winCount
   };
 };

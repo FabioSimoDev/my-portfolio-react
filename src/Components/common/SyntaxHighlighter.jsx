@@ -1,6 +1,11 @@
 import PropTypes from "prop-types";
 import { Fragment } from "react";
-const SyntaxHighlighter = ({ code, className, countLine = false }) => {
+const SyntaxHighlighter = ({
+  code,
+  className,
+  countLine = false,
+  redirectTo = null
+}) => {
   const highlightCode = (code) => {
     // Regex per trovare keyword, dichiarazioni di variabili, stringhe, commenti e nuove linee (\n)
     const regex =
@@ -156,7 +161,13 @@ const SyntaxHighlighter = ({ code, className, countLine = false }) => {
             : null
         } ${className}`}
       >
-        {highlightCode(code)}
+        {redirectTo ? (
+          <a href={redirectTo} target="_blank" rel="noopener noreferrer">
+            {highlightCode(code)}
+          </a>
+        ) : (
+          highlightCode(code)
+        )}
       </p>
     </div>
   );
@@ -165,7 +176,8 @@ const SyntaxHighlighter = ({ code, className, countLine = false }) => {
 SyntaxHighlighter.propTypes = {
   code: PropTypes.string,
   className: PropTypes.string,
-  countLine: PropTypes.bool
+  countLine: PropTypes.bool,
+  redirectTo: PropTypes.string
 };
 
 export default SyntaxHighlighter;

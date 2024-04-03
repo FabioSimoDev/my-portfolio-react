@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useGameLogic } from "../../helpers/useGameLogic";
 import ChangeGameDifficulty from "./settings/ChangeGameDifficulty";
 import { useGame } from "../../helpers/useGameContext";
+import LoadingDots from "../common/LoadingDots";
 
 const Game = () => {
   const [selectedOption, setSelectedOption] = useState(
@@ -16,6 +17,7 @@ const Game = () => {
     play,
     stop,
     isPlaying,
+    isThinking,
     winCount
   } = useGameLogic(selectedOption);
   const { setIsGameCompleted, isGameComplete } = useGame();
@@ -73,8 +75,13 @@ const Game = () => {
           </button>
         </div>
       </div>
+      {isThinking && !winner && (
+        <div className="absolute bottom-3">
+          <LoadingDots />
+        </div>
+      )}
       {winner && (
-        <div className="absolute bottom-0">
+        <div className="absolute bottom-0 text-sm">
           <p>{winner === "T" ? "Tie Game!" : "Winner: " + winner}</p>
           <button onClick={restartGame}>Restart Game</button>
         </div>

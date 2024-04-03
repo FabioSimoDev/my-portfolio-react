@@ -31,10 +31,7 @@ export const Navbar = () => {
     <header
       className={`absolute animate-slideDown w-full z-50 justify-between md:justify-start md:items-stretch items-center flex px-4 md:px-0 transition-all duration-200 border-b border-b-lines-color text-text-secondary bg-primary-bg`}
     >
-      <div
-        className="p-3 pe-28 flex justify-between items-center shrink-0 truncate"
-        role="button"
-      >
+      <div className="p-3 pe-28 flex justify-between items-center shrink-0 truncate">
         <p>fabio-simonelli</p>
       </div>
       <nav className="md:w-full">

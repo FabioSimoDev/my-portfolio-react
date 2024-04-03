@@ -14,5 +14,5 @@ BoardCell.propTypes = {
   cell: PropTypes.any,
   handleClick: PropTypes.func,
   index: PropTypes.number,
-  isPlaying: PropTypes.bool,
+  isPlaying: PropTypes.bool
 };

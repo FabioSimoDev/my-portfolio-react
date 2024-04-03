@@ -25,6 +25,7 @@ const Home = () => {
             <SyntaxHighlighter
               code={"const githubLink = 'https://github.com/FabioSimoDev'"}
               className={"[font-size:_clamp(0.8rem,0.9vw,1.3rem)] lg:truncate"}
+              redirectTo={"https://github.com/FabioSimoDev"}
             />
           </div>
         </div>
