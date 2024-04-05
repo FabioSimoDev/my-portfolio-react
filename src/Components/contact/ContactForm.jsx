@@ -8,7 +8,7 @@ import alertTypes from "../../Utils/alertTypes";
 const ContactForm = () => {
   const ContactForm = useContactFormContext();
   const [isMessageSent, setIsMessageSent] = useState(false);
-  const [sendEmail, { isSuccess, isError, error }] = useSendEmail();
+  const [sendEmail, { isLoading, isSuccess, isError, error }] = useSendEmail();
   const form = useRef();
   const Toast = useToast();
 
@@ -36,7 +36,7 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    sendEmail(form);
+    if (!isLoading) sendEmail(form);
   };
 
   useEffect(() => {
@@ -64,6 +64,7 @@ const ContactForm = () => {
       <input
         type="text"
         name="name"
+        required
         className="border border-1 focus:border-2 mb-5 px-3 py-1 w-full"
         onChange={handleInputChange}
       />
@@ -71,12 +72,14 @@ const ContactForm = () => {
       <input
         type="email"
         name="email"
+        required
         className="border border-1 focus:border-2 mb-5 px-3 py-1 w-full"
         onChange={handleInputChange}
       />
       <label>_message</label>
       <textarea
         name="message"
+        required
         className="border border-1 focus:border-2 mb-5 px-3 py-1 resize-none w-full"
         onChange={handleInputChange}
         rows={5}
@@ -84,8 +87,11 @@ const ContactForm = () => {
       <input
         type="submit"
         role="button"
+        required
         value="submit-message"
-        className="bg-[#1C2B3A] py-2 px-3 rounded-lg text-white text-sm"
+        className={`bg-[#1C2B3A] py-2 px-3 rounded-lg text-white text-sm ${
+          isLoading ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
       />
     </form>
   ) : (
