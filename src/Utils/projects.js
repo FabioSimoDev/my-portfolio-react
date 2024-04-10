@@ -61,7 +61,7 @@ const projects = [
       technologiesMap.JAVASCRIPT
     ]),
     image: EpicodeBenchmarkClone,
-    gitHub: "https://github.com/FabioSimoDev/team4BW2/tree/main"
+    gitHub: "https://github.com/FabioSimoDev/team4BW"
   },
   {
     title: "Netflix clone",
@@ -69,10 +69,12 @@ const projects = [
     technologies: filterTechnologies([
       technologiesMap.HTML,
       technologiesMap.SASS,
-      technologiesMap.JAVASCRIPT
+      technologiesMap.JAVASCRIPT,
+      technologiesMap.BOOTSTRAP
     ]),
     image: NetflixClone,
-    gitHub: "https://github.com/FabioSimoDev/team4BW2/tree/main"
+    gitHub:
+      "https://github.com/FabioSimoDev/U2-W2-progetto-settimanale/tree/main"
   }
 ];
 
